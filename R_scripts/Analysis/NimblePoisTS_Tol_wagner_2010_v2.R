@@ -65,7 +65,7 @@ poisTSModel_conf <- configureMCMC(poisTSModel)
 #poisTSModel_conf$addMonitors(c("mu"))
 
 #build MCMC
-poisTSModelMCMC <- buildMCMC(poisTSModel_conf,thin=1,enableWAIC=T)
+poisTSModelMCMC <- buildMCMC(poisTSModel_conf,thin=99,enableWAIC=T)
 
 #compile MCMC to C++—much faster
 C_poisTSModelMCMC <- compileNimble(poisTSModelMCMC,project=poisTSModel)
@@ -91,20 +91,20 @@ save(samples,file=paste("../Results/MCMC_Chains/whole/","mcmc_",modelnum,".RData
 
 #diags
 ncol_samples <- ncol(samples)
-coda_mcmc <- mcmc(samples[1000:niter,grep("B|rho|sigma|lambda",colnames(samples))],thin=1)
+coda_mcmc <- mcmc(samples[1000:niter,grep("B|rho|sigma|lambda",colnames(samples))],thin=99)
 mcmc_geweke <- geweke.diag(coda_mcmc)
 write.csv(t(mcmc_geweke$z),file=paste("../Results/MCMC_Chains/whole/","geweke_",modelnum,".csv",sep=""))
 
 #plots
 #samples_trim <- samples[1000:niter,]#grep("B|rho|sigma|lambda0",colnames(samples))]
 trim <- 1000
-source("../R_scripts/Plotting/plot_mcmc.R")
-dev.copy(png,
-         file=paste("../Results/MCMC_Chains/whole/",modelnum,".png",sep=""),
-         height=1000,
-         width=1500,
-         units="px",
-         res=150)
-dev.off()
+#source("../R_scripts/Plotting/plot_mcmc.R")
+#dev.copy(png,
+#         file=paste("../Results/MCMC_Chains/whole/",modelnum,".png",sep=""),
+#         height=1000,
+#         width=1500,
+#         units="px",
+#         res=150)
+#dev.off()
 
 alarm()
