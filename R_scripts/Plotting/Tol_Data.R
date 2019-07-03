@@ -1,0 +1,99 @@
+par(mfcol=c(4,1),mar=c(1,6,1,3),oma=c(3,1,4,1),family="serif",bg="white")
+###
+index <- which(Tol_Wagner_2010[,1] >= 1000 & Tol_Wagner_2010[,1] <= 2000)
+plotdf <- Tol_Wagner_2010[index,]
+plot(plotdf$Year,
+      plotdf$Conflict,
+      type="h",
+      ylab="Conflicts",
+      xaxt="n",
+      yaxt="n",
+      frame.plot=F,
+      col.lab=rgb(50/255,50/255,50/255),
+      #ylim=c(0,5),
+      xlim=c(1000,2000),
+      cex.lab=1.5)
+pltcrd=par()$usr
+axis(side=2,
+      #at=seq(0,5,1),
+      tick=T,
+      col="darkgrey",
+      tck=0.05,
+      col.axis=rgb(100/255,100/255,100/255))
+axis(side=3,
+      at=seq(1000,2000,100),
+      tick=T,
+      tck=0.05,
+      col="darkgrey",
+      cex.axis=1.5,
+      col.axis=rgb(100/255,100/255,100/255))
+###
+###
+plot(plotdf$Year,
+      plotdf$T_Provided,
+      type="l",
+      col="red",
+      ylab="T Provided",
+      xaxt="n",
+      yaxt="n",
+      frame.plot=F,
+      col.lab=rgb(50/255,50/255,50/255),
+      #ylim=c(27.5,29),
+      xlim=c(1000,2000),
+      cex.lab=1.5)
+axis(side=4,
+      #at=seq(27,29,0.5),
+      tick=T,
+      col="darkgrey",
+      tck=0.05,
+      col.axis=rgb(100/255,100/255,100/255))
+###
+plot(plotdf$Year,
+      plotdf$T_Mann_2003,
+      type="l",
+      col="red",
+      ylab="T Mann 2003",
+      xaxt="n",
+      yaxt="n",
+      frame.plot=F,
+      col.lab=rgb(50/255,50/255,50/255),
+      xlim=c(1000,2000),
+      cex.lab=1.5)
+axis(side=2,
+      #at=seq(-5,-2,0.5),
+      tick=T,
+      col="darkgrey",
+      tck=0.05,
+      col.axis=rgb(100/255,100/255,100/255))
+###
+plot(plotdf$Year,
+      plotdf$P_Provided,
+      type="l",
+      col="blue",
+      ylab="P Provided",
+      xaxt="n",
+      yaxt="n",
+      frame.plot=F,
+      col.lab=rgb(50/255,50/255,50/255),
+      xlim=c(1000,2000),
+      cex.lab=1.5)
+axis(side=4,
+      #at=seq(-5,-2,0.5),
+      tick=T,
+      col="darkgrey",
+      tck=0.05,
+      col.axis=rgb(100/255,100/255,100/255))
+axis(side=1,
+      at=seq(1000,2000,100),
+      tick=T,
+      tck=0.05,
+      col="darkgrey",
+      cex.axis=1.5,
+      col.axis=rgb(100/255,100/255,100/255))
+###
+###
+mtext("Years CE",side=1,line=2,outer=T,col=rgb(51/255,48/255,43/255))
+mtext("Years CE",side=3,line=2,outer=T,col=rgb(51/255,48/255,43/255))
+##
+dev.copy(png,"../Images/Tol_Wagner_Data.png",height=1200,width=1000,units="px",res=150)
+dev.off()
