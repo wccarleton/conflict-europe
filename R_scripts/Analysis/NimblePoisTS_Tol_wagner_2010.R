@@ -36,7 +36,7 @@ T_Mann2003 <- EuroClimCon[index,5] - mean(EuroClimCon[index,5])
 T_Luterbacher2016 <- EuroClimCon$T_Luterbacher2016[index] - mean(EuroClimCon$T_Luterbacher2016[index])
 T_Buntgen2011 <- EuroClimCon$T_Buntgen2011_JJA[index] - mean(EuroClimCon$T_Buntgen2011_JJA[index])
 T_Glaser2009 <- EuroClimCon$T_Glaser2009[index] - mean(EuroClimCon$T_Glaser2009[index])
-X <- cbind(rep(1,T),T_Glaser2009)#(T_Provided, P_Provided)
+X <- cbind(rep(1,T),T_Luterbacher2016)#(T_Provided, P_Provided)
 K <- ncol(X)
 
 poisTSData <- list(Y=Y,
@@ -59,13 +59,13 @@ poisTSModel <- nimbleModel(code=poisTSCode,
 C_poisTSModel <- compileNimble(poisTSModel, showCompilerOutput = FALSE)
 
 #configure the MCMC
-poisTSModel_conf <- configureMCMC(poisTSModel)
+poisTSModel_conf <- configureMCMC(poisTSModel,thin=99)
 
 #select the variables that we want to monitor in the MCMC chain
 #poisTSModel_conf$addMonitors(c("mu"))
 
 #build MCMC
-poisTSModelMCMC <- buildMCMC(poisTSModel_conf,thin=99,enableWAIC=T)
+poisTSModelMCMC <- buildMCMC(poisTSModel_conf,enableWAIC=T)
 
 #compile MCMC to C++—much faster
 C_poisTSModelMCMC <- compileNimble(poisTSModelMCMC,project=poisTSModel)
