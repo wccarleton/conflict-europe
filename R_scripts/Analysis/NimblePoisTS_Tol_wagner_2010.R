@@ -107,4 +107,5 @@ trim <- 1000
 #         res=150)
 #dev.off()
 
-alarm()
+#alarm()
+source("../R_scripts/SMS/sms.R")
