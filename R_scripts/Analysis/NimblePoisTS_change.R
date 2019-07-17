@@ -64,7 +64,7 @@ poisTSModel <- nimbleModel(code=poisTSCode,
 C_poisTSModel <- compileNimble(poisTSModel, showCompilerOutput = FALSE)
 
 #configure the MCMC
-poisTSModel_conf <- configureMCMC(poisTSModel,thin=1)
+poisTSModel_conf <- configureMCMC(poisTSModel,thin=99)
 
 #select the variables that we want to monitor in the MCMC chain
 #poisTSModel_conf$addMonitors(c("mu"))
@@ -76,7 +76,7 @@ poisTSModelMCMC <- buildMCMC(poisTSModel_conf,enableWAIC=T)
 C_poisTSModelMCMC <- compileNimble(poisTSModelMCMC,project=poisTSModel)
 
 #number of MCMC iterations
-niter <- 2000000
+niter <- 20000000
 niter90 <- niter * 0.9
 
 #set seed for replicability
