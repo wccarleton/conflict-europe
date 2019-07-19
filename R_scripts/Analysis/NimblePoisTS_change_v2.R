@@ -64,7 +64,7 @@ poisTSModel <- nimbleModel(code=poisTSCode,
 C_poisTSModel <- compileNimble(poisTSModel, showCompilerOutput = FALSE)
 
 #configure the MCMC
-poisTSModel_conf <- configureMCMC(poisTSModel,thin=1)
+poisTSModel_conf <- configureMCMC(poisTSModel,thin=99)
 
 #select the variables that we want to monitor in the MCMC chain
 #poisTSModel_conf$addMonitors(c("mu"))
@@ -112,4 +112,5 @@ source("../R_scripts/Plotting/plot_mcmc.R")
 #         res=150)
 #dev.off()
 
-alarm()
+#alarm()
+source("../R_scripts/SMS/sms.R")
