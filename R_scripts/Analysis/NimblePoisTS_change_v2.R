@@ -76,7 +76,7 @@ poisTSModelMCMC <- buildMCMC(poisTSModel_conf,enableWAIC=T)
 C_poisTSModelMCMC <- compileNimble(poisTSModelMCMC,project=poisTSModel)
 
 #number of MCMC iterations
-niter <- 2000000
+niter <- 20000000
 niter90 <- niter * 0.9
 
 #set seed for replicability
@@ -96,7 +96,7 @@ save(samples,file=paste("../Results/MCMC_Chains/whole/","mcmc_",modelnum,".RData
 
 #diags
 ncol_samples <- ncol(samples)
-coda_mcmc <- mcmc(samples[1000:niter,grep("B|rho|sigma|lambda",colnames(samples))],thin=99)
+coda_mcmc <- mcmc(samples[1000:dim(samples)[1],grep("B|rho|sigma|lambda",colnames(samples))],thin=99)
 mcmc_geweke <- geweke.diag(coda_mcmc)
 write.csv(t(mcmc_geweke$z),file=paste("../Results/MCMC_Chains/whole/","geweke_",modelnum,".csv",sep=""))
 
