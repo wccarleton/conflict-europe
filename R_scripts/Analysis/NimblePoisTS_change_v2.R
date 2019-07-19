@@ -13,10 +13,10 @@ poisTSCode <- nimbleCode({
    sigma ~ dexp(0.1)
    lambda0 ~ dnorm(mean=0,sd=2)
    rho ~ dnorm(0,sd=2)
-   Delta ~ dunif(0,T)
-   ind[1:T] <- nimbleIndVector(T,Delta)
+   Delta ~ dunif(500,900)
+   ind[1:Time] <- nimbleIndVector(Time,Delta)
    lambda[1] ~ dnorm(rho * lambda0,sd=sigma)
-   for (j in 2:T){
+   for (j in 2:Time){
       if(K > 1){
          mu[j] <- inprod(X[j,1:K], (B_1[1:K] + (B_2[1:K] * ind[j])))
       }else{
@@ -24,7 +24,7 @@ poisTSCode <- nimbleCode({
       }
       lambda[j] ~ dnorm(rho * lambda[j-1],sd=sigma)
    }
-   for (j in 1:T){
+   for (j in 1:Time){
       Y[j] ~ dpois(exp(mu[j] + lambda[j]))
    }
 })
@@ -32,7 +32,7 @@ timespan <- "1000_1980"
 modelnum <- "change_Luterbacher2016"
 index <- which(EuroClimCon$Year >= 1005 & EuroClimCon$Year <= 1980)
 Y <- EuroClimCon$Conflicts[index]
-T <- length(Y)
+Time <- length(Y)
 T_Provided <- EuroClimCon[index,3] - mean(EuroClimCon[index,3])
 P_Provided <- EuroClimCon[index,4] - mean(EuroClimCon[index,4])
 T_Mann2003 <- EuroClimCon[index,5] - mean(EuroClimCon[index,5])
@@ -45,7 +45,7 @@ K <- 1#ncol(X)
 poisTSData <- list(Y=Y,
                   X=X)
 
-poisTSConsts <- list(T=T,
+poisTSConsts <- list(Time=Time,
                      K=K)
 
 poisTSInits <- list(lambda0=0,
