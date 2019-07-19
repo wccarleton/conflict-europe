@@ -39,8 +39,8 @@ T_Mann2003 <- EuroClimCon[index,5] - mean(EuroClimCon[index,5])
 T_Luterbacher2016 <- EuroClimCon$T_Luterbacher2016[index] - mean(EuroClimCon$T_Luterbacher2016[index])
 T_Buntgen2011 <- EuroClimCon$T_Buntgen2011_JJA[index] - mean(EuroClimCon$T_Buntgen2011_JJA[index])
 T_Glaser2009 <- EuroClimCon$T_Glaser2009[index] - mean(EuroClimCon$T_Glaser2009[index])
-X <- cbind(rep(1,T),T_Luterbacher2016)#(T_Provided, P_Provided)
-K <- ncol(X)
+X <- T_Luterbacher2016#(T_Provided, P_Provided)
+K <- 1#ncol(X)
 
 poisTSData <- list(Y=Y,
                   X=X)
@@ -64,7 +64,9 @@ poisTSModel <- nimbleModel(code=poisTSCode,
 C_poisTSModel <- compileNimble(poisTSModel, showCompilerOutput = FALSE)
 
 #configure the MCMC
-poisTSModel_conf <- configureMCMC(poisTSModel,thin=99)
+poisTSModel_conf <- configureMCMC(poisTSModel,thin=9)
+poisTSModel_conf$removeSampler(c("B_1","B_2"))
+poisTSModel_conf$addSampler(target = c("B_1", "B_2"), type = "RW_block")
 
 #select the variables that we want to monitor in the MCMC chain
 #poisTSModel_conf$addMonitors(c("mu"))
@@ -76,7 +78,7 @@ poisTSModelMCMC <- buildMCMC(poisTSModel_conf,enableWAIC=T)
 C_poisTSModelMCMC <- compileNimble(poisTSModelMCMC,project=poisTSModel)
 
 #number of MCMC iterations
-niter <- 20000000
+niter <- 2000000
 niter90 <- niter * 0.9
 
 #set seed for replicability
@@ -88,11 +90,6 @@ C_poisTSModelMCMC$run(niter)
 #save the MCMC chain (monitored variables) as a matrix
 samples <- as.matrix(C_poisTSModelMCMC$mvSamples)
 save(samples,file=paste("../Results/MCMC_Chains/whole/","mcmc_",modelnum,".RData",sep=""))
-#print(C_poisTSModelMCMC$calculateWAIC(nburnin=100000))
-#cols <- grep("log",colnames(samples))
-#print(prod(colMeans(exp(samples[100000:200000,cols]))))
-#print(mean(samples[100000:200000,1]))
-#print(mean(samples[100000:200000,2]))
 
 #diags
 ncol_samples <- ncol(samples)
