@@ -1,6 +1,6 @@
 par(mfrow=c(3,4),mar=c(1,3,3,1),oma=c(1,1,3,1),family="serif",bg="white")
 numcols <- ncol(samples)
-samples_set <- samples[trim:niter,]
+samples_set <- samples[trim:dim(samples)[1],]
 jname <- colnames(samples_set)
 for(j in 1:ncol(samples_set)){
 plot(samples_set[,j],

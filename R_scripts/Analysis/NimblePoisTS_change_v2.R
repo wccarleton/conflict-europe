@@ -98,7 +98,7 @@ mcmc_geweke <- geweke.diag(coda_mcmc)
 write.csv(t(mcmc_geweke$z),file=paste("../Results/MCMC_Chains/whole/","geweke_",modelnum,".csv",sep=""))
 
 #plots
-#samples_trim <- samples[1000:niter,]#grep("B|rho|sigma|lambda0",colnames(samples))]
+#samples_trim <- samples[1000:dim(samples)[1],]#grep("B|rho|sigma|lambda0",colnames(samples))]
 trim <- 1000
 source("../R_scripts/Plotting/plot_mcmc.R")
 #dev.copy(png,
