@@ -7,13 +7,13 @@ poisTSCode <- nimbleCode({
       mu[1] <- inprod(X[1,1:K], (B_1[1:K] + (B_2[1:K] * ind[1])))
    }else{
       B_1 ~ dnorm(mean=0,sd=2)
-      B_2 ~ dnorm(mean=0,sd=2)
+      B_2 ~ dnorm(mean=0,sd=0.5)
       mu[1] <- X[1] * (B_1 + (B_2 * ind[1]))
    }
    sigma ~ dexp(0.1)
    lambda0 ~ dnorm(mean=0,sd=2)
    rho ~ dnorm(0,sd=2)
-   Delta ~ dunif(500,900)
+   Delta ~ dunif(1,Time)
    ind[1:Time] <- nimbleIndVector(Time,Delta)
    lambda[1] ~ dnorm(rho * lambda0,sd=sigma)
    for (j in 2:Time){
@@ -30,7 +30,7 @@ poisTSCode <- nimbleCode({
 })
 timespan <- "1000_1980"
 modelnum <- "change_Luterbacher2016"
-index <- which(EuroClimCon$Year >= 1005 & EuroClimCon$Year <= 1980)
+index <- which(EuroClimCon$Year >= 1004 & EuroClimCon$Year <= 1980)
 Y <- EuroClimCon$Conflicts[index]
 Time <- length(Y)
 T_Provided <- EuroClimCon[index,3] - mean(EuroClimCon[index,3])
@@ -51,7 +51,7 @@ poisTSConsts <- list(Time=Time,
 poisTSInits <- list(lambda0=0,
                      sigma=1,
                      rho=0,
-                     Delta=0,
+                     Delta=100,
                      B_1=rep(0,K),
                      B_2=rep(0,K))
 
@@ -78,7 +78,7 @@ poisTSModelMCMC <- buildMCMC(poisTSModel_conf,enableWAIC=T)
 C_poisTSModelMCMC <- compileNimble(poisTSModelMCMC,project=poisTSModel)
 
 #number of MCMC iterations
-niter <- 2000000
+niter <- 100000
 niter90 <- niter * 0.9
 
 #set seed for replicability
