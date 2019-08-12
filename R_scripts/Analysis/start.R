@@ -1,5 +1,8 @@
+setwd("/home/carleton/project/carleton/EuroConflict/conflict-europe/R_workspaces/")
 library(nimble)
 library(coda)
 library(httr)
 source("../R_scripts/Plotting/HPDregion.R")
+source("../R_scripts/Analysis/nimbleIndicator.R")
 load("../Data/EuroClimCon_v2.RData")
+source("../R_scripts/Analysis/NimbltPoisTS_change_v2.R")
