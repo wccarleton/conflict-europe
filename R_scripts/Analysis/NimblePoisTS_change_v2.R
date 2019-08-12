@@ -28,7 +28,7 @@ poisTSCode <- nimbleCode({
       Y[j] ~ dpois(exp(mu[j] + lambda[j]))
    }
 })
-timespan <- "1000_1980"
+timespan <- "1004_1980"
 modelnum <- "change_Luterbacher2016"
 index <- which(EuroClimCon$Year >= 1004 & EuroClimCon$Year <= 1980)
 Y <- EuroClimCon$Conflicts[index]
