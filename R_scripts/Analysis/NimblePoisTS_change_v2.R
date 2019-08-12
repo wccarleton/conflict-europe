@@ -111,3 +111,5 @@ source("../R_scripts/Plotting/plot_mcmc.R")
 
 #alarm()
 #source("../R_scripts/SMS/sms.R")
+
+q("n")
