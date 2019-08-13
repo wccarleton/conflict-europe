@@ -29,7 +29,7 @@ poisTSCode <- nimbleCode({
    }
 })
 timespan <- "1004_1980"
-modelnum <- "change_Buntgen2011"
+modelnum <- "change_Mann2003"
 index <- which(EuroClimCon$Year >= 1004 & EuroClimCon$Year <= 1980)
 Y <- EuroClimCon$Conflicts[index]
 Time <- length(Y)
@@ -39,7 +39,7 @@ T_Mann2003 <- EuroClimCon[index,5] - mean(EuroClimCon[index,5])
 T_Luterbacher2016 <- EuroClimCon$T_Luterbacher2016[index] - mean(EuroClimCon$T_Luterbacher2016[index])
 T_Buntgen2011 <- EuroClimCon$T_Buntgen2011_JJA[index] - mean(EuroClimCon$T_Buntgen2011_JJA[index])
 T_Glaser2009 <- EuroClimCon$T_Glaser2009[index] - mean(EuroClimCon$T_Glaser2009[index])
-X <- T_Buntgen2011#(T_Provided, P_Provided)
+X <- T_Mann2003#(T_Provided, P_Provided)
 K <- 1#ncol(X)
 
 poisTSData <- list(Y=Y,
@@ -78,7 +78,7 @@ poisTSModelMCMC <- buildMCMC(poisTSModel_conf,enableWAIC=T)
 C_poisTSModelMCMC <- compileNimble(poisTSModelMCMC,project=poisTSModel)
 
 #number of MCMC iterations
-niter <- 2000000
+niter <- 20000000
 niter90 <- niter * 0.9
 
 #set seed for replicability
