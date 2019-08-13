@@ -78,7 +78,7 @@ poisTSModelMCMC <- buildMCMC(poisTSModel_conf,enableWAIC=T)
 C_poisTSModelMCMC <- compileNimble(poisTSModelMCMC,project=poisTSModel)
 
 #number of MCMC iterations
-niter <- 100000
+niter <- 2000000
 niter90 <- niter * 0.9
 
 #set seed for replicability
