@@ -28,9 +28,9 @@ poisTSCode <- nimbleCode({
       Y[j] ~ dpois(exp(mu[j] + lambda[j]))
    }
 })
-timespan <- "1004_1980"
-modelnum <- "change_Glaser2009"
-index <- which(EuroClimCon$Year >= 1004 & EuroClimCon$Year <= 1980)
+timespan <- "1005_1980"
+modelnum <- "change_Mann2003"
+index <- which(EuroClimCon$Year >= 1005 & EuroClimCon$Year <= 1980)
 Y <- EuroClimCon$Conflicts[index]
 Time <- length(Y)
 T_Provided <- EuroClimCon[index,3] - mean(EuroClimCon[index,3])
@@ -39,7 +39,7 @@ T_Mann2003 <- EuroClimCon[index,5] - mean(EuroClimCon[index,5])
 T_Luterbacher2016 <- EuroClimCon$T_Luterbacher2016[index] - mean(EuroClimCon$T_Luterbacher2016[index])
 T_Buntgen2011 <- EuroClimCon$T_Buntgen2011_JJA[index] - mean(EuroClimCon$T_Buntgen2011_JJA[index])
 T_Glaser2009 <- EuroClimCon$T_Glaser2009[index] - mean(EuroClimCon$T_Glaser2009[index])
-X <- T_Glaser2009#(T_Provided, P_Provided)
+X <- T_Mann2003#(T_Provided, P_Provided)
 K <- 1#ncol(X)
 
 poisTSData <- list(Y=Y,
@@ -64,7 +64,7 @@ poisTSModel <- nimbleModel(code=poisTSCode,
 C_poisTSModel <- compileNimble(poisTSModel, showCompilerOutput = FALSE)
 
 #configure the MCMC
-poisTSModel_conf <- configureMCMC(poisTSModel,thin=9)
+poisTSModel_conf <- configureMCMC(poisTSModel,thin=99)
 poisTSModel_conf$removeSampler(c("B_1","B_2"))
 poisTSModel_conf$addSampler(target = c("B_1", "B_2"), type = "RW_block")
 
@@ -110,4 +110,4 @@ source("../R_scripts/Plotting/plot_mcmc.R")
 #dev.off()
 
 #alarm()
-#source("../R_scripts/SMS/sms.R")
+source("../R_scripts/SMS/sms.R")
