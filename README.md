@@ -1,4 +1,6 @@
 # Project
+[![DOI](https://zenodo.org/badge/195126666.svg)](https://zenodo.org/badge/latestdoi/195126666)
+
 ## Overview
 This repo contains the data and code used for the study presented in the following paper:
 
@@ -6,9 +8,6 @@ This repo contains the data and code used for the study presented in the followi
 European conflict during the second millennium CE using a bespoke
 Bayesian time-series model
 *](https://doi.org/10.1007/s10584-021-03022-2)
-
-### Repository DOI
-[![DOI](https://zenodo.org/badge/195126666.svg)](https://zenodo.org/badge/latestdoi/195126666)
 
 ## Abstract
 Recently, there has been a lot of discussion about the impact of climate change on human conflict. Here, we report a study in which we revisited the findings of a paper that has been cited many times in the discussion. The paper in question focused on the association between temperature and conflict in Europe between 1000 and 1980 CE and suggested that colder temperatures led to more conflict. However, there are reasons to skeptical of this finding. Most importantly, the analytical technique used by the paper’s authors was not suitable for the conflict dataset because the dataset is count-based and contains autocorrelation. With this in mind, we developed a Bayesian time-series model that is capable of dealing with these features, and then we reanalysed the dataset in conjunction with several temperature reconstructions. The results we obtained were unambiguous. None of the models that included temperature as a covariate outperformed a null hypothesis in which conflict levels at any given time were determined only by previous levels. Thus, we found no evidence that colder temperatures led to more conflict in Europe during the second millennium CE. When this finding is placed alongside the results of other studies that have examined temperature and conflict over the long term, it is clear that the impact of temperature on conflict is context dependent. Identifying the factor(s) that mediate the relationship between temperature and conflict should now be a priority.
