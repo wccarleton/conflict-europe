@@ -9,6 +9,10 @@ Bayesian time-series model
 
 In this study, we re-evaluated previously published results regarding the impact of long-term temperature change on conflict in Europe during the 2nd millennium CE. In that previous study, the authors identified a negative relationship between temperature and 2snd millennium European conflict levels (see the study [here](https://dx.doi.org/10.1007/s10584-009-9659-2)). Those results were based on a statistical model that wasn't optimal given the data at hand, however. So, we developed a new Bayesian time-series ([state-space](https://kevinkotze.github.io/ts-4-state-space/)) model that better accounts for the nature and structure of the historical conflict record. Our findings indicate that there was no long-term relationship between changing temperatures and conflict levels contrary to the previously published findings.
 
+## Repository DOI
+
+[![DOI](https://zenodo.org/badge/195126666.svg)](https://zenodo.org/badge/latestdoi/195126666)
+
 # Replication
 To replicate the analysis described in the paper, click the download link above. Then, start an R session with the working directory set to `./Src` in the downloaded repository. Next, run `source("start.R")`.
 
